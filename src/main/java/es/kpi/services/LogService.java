@@ -8,4 +8,13 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Slf4j
 public class LogService {
+
+
+    //create
+
+    //edit
+
+    //delete
+
+    //fetch
 }
