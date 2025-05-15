@@ -11,6 +11,12 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * DTO for creating a new KPI definition.
+ * <p>
+ * This class is used to transfer data from the client to the server when creating a new KPI definition.
+ * It includes validation annotations to ensure that the data meets certain criteria before being processed.
+ */
 public class CreateDefinitionDTO {
 
 

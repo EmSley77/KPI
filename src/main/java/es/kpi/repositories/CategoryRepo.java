@@ -1,15 +1,17 @@
 package es.kpi.repositories;
 
 import es.kpi.entities.Category;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Repository
 public interface CategoryRepo extends JpaRepository<Category, Long> {
 
 
     List<Category> findAllByUserId(String userId);
-    List<Category> findAllByUserIdAndName(String userId, String name);
+
+    Optional<Category> findAllByUserIdAndName(String userId, String name);
 }

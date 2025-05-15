@@ -6,11 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * DTO for creating a new log entry.
+ * <p>
+ * This class is used to transfer data from the client to the server when creating a new log entry.
+ * It contains the necessary fields and validation annotations to ensure that the data is valid.
+ */
 public class CreateLogDTO {
 
     @NotNull

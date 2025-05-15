@@ -1,7 +1,6 @@
 package es.kpi.services;
 
 import es.kpi.entities.KpiLog;
-import es.kpi.exceptions.NotFoundException;
 import es.kpi.repositories.DefinitionRepo;
 import es.kpi.repositories.LogRepo;
 import lombok.RequiredArgsConstructor;
@@ -50,19 +49,17 @@ public class BackgroundService {
                 case "DAILY" -> true;
                 case "WEEKLY" -> LocalDate.now().getDayOfWeek().equals(definition.getRecurrenceDate().getDayOfWeek());
                 case "MONTHLY" -> LocalDate.now().getDayOfMonth() == definition.getRecurrenceDate().getDayOfMonth();
-                case "YEARLY" ->
-                        LocalDate.now()
-                                .format(DateTimeFormatter.ofPattern("dd-MM"))
-                                .equals(definition.getRecurrenceDate()
-                                        .format(DateTimeFormatter.ofPattern("dd-MM")));
+                case "YEARLY" -> LocalDate.now()
+                        .format(DateTimeFormatter.ofPattern("dd-MM"))
+                        .equals(definition.getRecurrenceDate()
+                                .format(DateTimeFormatter.ofPattern("dd-MM")));
                 default -> false;
             };
 
             if (!shouldRunToday) return;
 
 
-            KpiLog kpiLog = logRepo.findByKpi(definition)
-                    .orElse(null);
+            KpiLog kpiLog = logRepo.findKpiLogByKpiAndUserId(definition, definition.getUserId()).orElse(null);
 
             if (kpiLog == null || kpiLog.getDate().isBefore(LocalDate.now())) {
                 logRepo.save(new KpiLog(definition, definition.getUserId()));

@@ -4,7 +4,6 @@ package es.kpi.services;
 import es.kpi.dto.request.CreateCategoryDTO;
 import es.kpi.dto.response.CategoryResponseDTO;
 import es.kpi.entities.Category;
-import es.kpi.exceptions.NotFoundException;
 import es.kpi.repositories.CategoryRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,14 +15,69 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Service class for managing categories.
+ */
 public class CategoryService {
 
 
     private final CategoryRepo categoryRepo;
 
-    //create
+    public void deleteCategory(Long categoryId) {
+        if (!categoryRepo.existsById(categoryId)) {
+            log.warn("Category with ID {} does not exist", categoryId);
+            return;
+        }
+        categoryRepo.deleteById(categoryId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryResponseDTO> getAllCategoriesByUserId(String userId) {
+        List<Category> categories = categoryRepo.findAllByUserId(userId);
+        if (categories.isEmpty()) {
+            log.info("No categories found for userId: {}", userId);
+            return List.of();
+        }
+        return categories.stream()
+                .map(this::mapToResponseDTO)
+                .toList();
+    }
+
+    public Category getCategoryById(Long categoryId) {
+        return categoryRepo.findById(categoryId)
+                .orElseGet(() -> {
+                    log.info("Category with ID {} not found, returning empty object", categoryId);
+                    return new Category();
+                });
+    }
+
+    @Transactional(readOnly = true)
+    public CategoryResponseDTO getAllCategoriesByUserIdAndName(String userId, String name) {
+        Category category = categoryRepo.findAllByUserIdAndName(userId, name)
+                .orElse(new Category());
+        return mapToResponseDTO(category);
+    }
+
+    //create category
     public void createCategory(CreateCategoryDTO createCategoryDTO) {
+        if (categoryRepo.findAllByUserIdAndName(createCategoryDTO.getUserId(), createCategoryDTO.getName()).isPresent()) {
+            log.warn("Category with name {} already exists for userId: {}", createCategoryDTO.getName(), createCategoryDTO.getUserId());
+            return;
+        }
+
+
         categoryRepo.save(mapToCategoryEntity(createCategoryDTO));
+    }
+
+    //update category
+    public void updateCategory(Long categoryId, CreateCategoryDTO createCategoryDTO) {
+        if (!categoryRepo.existsById(categoryId)) {
+            log.warn("Category with ID {} does not exist", categoryId);
+            return;
+        }
+        Category category = getCategoryById(categoryId);
+        category.setName(createCategoryDTO.getName());
+        categoryRepo.save(category);
     }
 
     //map to category entity obj
@@ -34,39 +88,13 @@ public class CategoryService {
         );
     }
 
-    //edit
-
-    //delete
-    public void deleteCategory(Long categoryId) {
-        categoryRepo.deleteById(categoryId);
-    }
-
-    //fetch by userId
-    @Transactional(readOnly = true)
-    public List<CategoryResponseDTO> getAllCategoriesByUserId(String userId) {
-        return categoryRepo.findAllByUserId(userId)
-                .stream()
-                .map(this::mapToResponseDTO)
-                .toList();
-    }
-
-    //fetch by name
-    @Transactional(readOnly = true)
-    public List<CategoryResponseDTO> getAllCategoriesByUserIdAndName(String userId, String name) {
-        return categoryRepo.findAllByUserIdAndName(userId, name)
-                .stream()
-                .map(this::mapToResponseDTO)
-                .toList();
-    }
-
+    //map to category response obj
     private CategoryResponseDTO mapToResponseDTO(Category category) {
-        return new CategoryResponseDTO(category.getId(), category.getName(), category.getUserId());
-    }
-
-
-    //fetch by id
-    public Category getCategoryById(Long categoryId) {
-        return categoryRepo.findById(categoryId).orElseThrow(() -> new NotFoundException("Category not found"));
+        return new CategoryResponseDTO(
+                category.getId(),
+                category.getName(),
+                category.getUserId()
+        );
     }
 
 }

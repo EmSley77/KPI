@@ -2,6 +2,7 @@ package es.kpi.services;
 
 import es.kpi.dto.request.CreateLogDTO;
 import es.kpi.dto.response.LogResponseDTO;
+import es.kpi.entities.KpiDefinition;
 import es.kpi.entities.KpiLog;
 import es.kpi.repositories.LogRepo;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Service class for managing KPI logs.
+ */
 public class KpiLogService {
 
     private final LogRepo logRepo;
@@ -39,6 +43,14 @@ public class KpiLogService {
     //fetch by userId
     public List<LogResponseDTO> getAllLogsByUserId(String userId) {
         return logRepo.findAllByUserId(userId)
+                .stream()
+                .map(this::mapToResponseDTO)
+                .toList();
+    }
+
+    //get all logs belonging to a specific KPI definition
+    public List<LogResponseDTO> getAllLogsByKpiId(KpiDefinition kpi) {
+        return logRepo.findByKpiAndUserId(kpi, kpi.getUserId())
                 .stream()
                 .map(this::mapToResponseDTO)
                 .toList();

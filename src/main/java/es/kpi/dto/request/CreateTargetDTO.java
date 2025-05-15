@@ -11,6 +11,12 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * DTO for creating a new target.
+ * <p>
+ * This class is used to transfer data from the client to the server when creating a new target.
+ * It contains the necessary fields and validation annotations to ensure that the data is valid.
+ */
 public class CreateTargetDTO {
 
     @NotNull

@@ -16,6 +16,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+/**
+ * RateLimitFilter is a filter that limits the number of requests a user can make to the server.
+ * It uses a token bucket algorithm to limit the requests to 100 per minute.
+ */
 public class RateLimitFilter extends OncePerRequestFilter {
 
     private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();

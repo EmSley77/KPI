@@ -15,6 +15,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Service class for managing KPI definitions.
+ */
 public class KpiDefinitionService {
 
     private final DefinitionRepo definitionRepo;
@@ -41,13 +44,22 @@ public class KpiDefinitionService {
 
     //delete
     public void deleteCategory(Long definitionId) {
+        if (!definitionRepo.existsById(definitionId)) {
+            log.warn("KPI Definition with ID {} does not exist", definitionId);
+            return;
+        }
         definitionRepo.deleteById(definitionId);
     }
 
     //fetch
     @Transactional(readOnly = true)
     public List<DefinitionResponseDTO> getAllDefinitionsByUserId(String userId) {
-        return definitionRepo.findAllByUserId(userId)
+        List<KpiDefinition> definitions = definitionRepo.findAllByUserId(userId);
+        if (definitions.isEmpty()) {
+            log.info("No KPI definitions found for userId: {}", userId);
+            return List.of();
+        }
+        return definitions
                 .stream()
                 .map(this::mapToResponseDTO)
                 .toList();

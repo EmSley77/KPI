@@ -1,7 +1,6 @@
 package es.kpi.background;
 
 import es.kpi.services.BackgroundService;
-import es.kpi.services.KpiDefinitionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

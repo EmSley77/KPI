@@ -71,6 +71,21 @@ public class TargetController {
         }
     }
 
+    // Fetch taget goal comparing with current KPI
+    @GetMapping("/target/kpiId/{kpiId}")
+    public ResponseEntity<?> getTargetGoalAndCurrent(@PathVariable Long kpiId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            response.put("data", kpiTargetService.getTargetGoalByKPI(kpiId));
+            response.put("error", null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("data", null);
+            response.put("error", Map.of("message", e.getMessage()));
+            return ResponseEntity.ok(response);
+        }
+    }
+
     // Delete
     @DeleteMapping("/delete/{targetId}")
     public ResponseEntity<?> deleteTarget(@PathVariable Long targetId) {

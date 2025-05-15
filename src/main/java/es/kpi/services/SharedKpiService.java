@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+/**
+ * Service class for managing shared KPIs.
+ */
 public class SharedKpiService {
 
 

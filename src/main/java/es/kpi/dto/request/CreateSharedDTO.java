@@ -9,6 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * DTO for creating a new shared entry.
+ * <p>
+ * This class is used to transfer data from the client to the server when creating a new shared entry.
+ * It contains the necessary fields and validation annotations to ensure that the data is valid.
+ */
 public class CreateSharedDTO {
 
     @NotNull

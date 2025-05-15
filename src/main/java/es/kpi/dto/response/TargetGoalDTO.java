@@ -13,10 +13,16 @@ import lombok.NoArgsConstructor;
  * This class is used to transfer data from the server to the client when retrieving a category.
  * It contains the necessary fields to represent a category response.
  */
-public class SharedResponseDTO {
+public class TargetGoalDTO {
 
-    private Long id;
+    private String userId;
     private Long kpiDefinitionId;
-    private String ownerId;
-    private String sharedWith;
+    private String CategoryName;
+    private String kpiDefinitionName;
+    private double currentTargetValue;
+    private double targetValue;
+    private String currentDate;
+    private String targetDate;
+    private double percentageReached;
+    private boolean isAchieved;
 }
