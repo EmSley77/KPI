@@ -43,10 +43,10 @@ public class KpiLog {
     @Column(name = "note")
     private String note;
 
-    public KpiLog(KpiDefinition kpi, String userId, LocalDate date, Double value, String note) {
+    public KpiLog(KpiDefinition kpi, String userId, Double value, String note) {
         this.kpi = kpi;
         this.userId = userId;
-        this.date = date;
+        this.date = LocalDate.now();
         this.value = value;
         this.note = note;
     }

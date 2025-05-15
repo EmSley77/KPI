@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 @Data
@@ -41,12 +39,22 @@ public class KpiDefinition {
     @Column(name = "is_recurring")
     private Boolean isRecurring;
 
+    @NotNull
+    @Column(name = "recurrence_type", nullable = false)
+    private String recurrenceType; // daily, weekly, monthly, yearly
 
-    public KpiDefinition(String name, String unit, String userId, Category category, Boolean isRecurring) {
+    @NotNull
+    @Column(name = "recurrence_detail", nullable = false)
+    private String recurrenceDetail; // day when the recurrence happens (DD)
+
+
+    public KpiDefinition(String name, String unit, String userId, Category category, Boolean isRecurring, String recurrenceType, String recurrenceDetail) {
         this.name = name;
         this.unit = unit;
         this.userId = userId;
         this.category = category;
         this.isRecurring = isRecurring;
+        this.recurrenceType = recurrenceType;
+        this.recurrenceDetail = recurrenceDetail;
     }
 }

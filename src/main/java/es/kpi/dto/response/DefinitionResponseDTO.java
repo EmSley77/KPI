@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 public class DefinitionResponseDTO {
 
     private Long id;
-    private String name;
+    private String KpiDefinitionName;
     private String unit;
     private String userId;
     private Long categoryId;
     private Boolean isRecurring;
+    private String recurrenceType; // daily, weekly, monthly, yearly
+    private String recurrenceDetail; // date when the recurrence ends (MM-DD)
 
 }

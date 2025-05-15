@@ -21,9 +21,6 @@ public class CreateLogDTO {
     private String userId;
 
     @NotNull
-    private LocalDate date;
-
-    @NotNull
     private Double value;
 
     private String note;

@@ -32,10 +32,11 @@ public class KpiDefinitionService {
                 createDefinitionDTO.getUnit(),
                 createDefinitionDTO.getUserId(),
                 categoryService.getCategoryById(createDefinitionDTO.getCategoryId()),
-                createDefinitionDTO.getIsRecurring());
+                createDefinitionDTO.getIsRecurring(),
+                createDefinitionDTO.getRecurrenceType(),
+                createDefinitionDTO.getRecurrenceDetail());
     }
 
-    //edit
 
     //delete
     public void deleteCategory(Long definitionId) {
@@ -74,7 +75,9 @@ public class KpiDefinitionService {
                 definition.getUnit(),
                 definition.getUserId(),
                 definition.getCategory().getId(),
-                definition.getIsRecurring()
+                definition.getIsRecurring(),
+                definition.getRecurrenceType(),
+                definition.getRecurrenceDetail()
         );
     }
 }

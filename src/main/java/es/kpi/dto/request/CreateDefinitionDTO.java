@@ -26,4 +26,10 @@ public class CreateDefinitionDTO {
     private Long categoryId; // optional if not always needed
 
     private Boolean isRecurring;
+
+    @NotNull
+    private String recurrenceType; // daily, weekly, monthly, yearly
+
+    @NotNull
+    private String recurrenceDetail;  // Meaning depends on recurrenceType
 }

@@ -30,7 +30,6 @@ public class KpiLogService {
         return new KpiLog(
                 kpiDefinitionService.getById(createLogDTO.getKpiDefinitionId()),
                 createLogDTO.getUserId(),
-                LocalDate.now(),
                 createLogDTO.getValue(),
                 createLogDTO.getNote());
     }
