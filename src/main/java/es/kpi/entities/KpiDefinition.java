@@ -15,6 +15,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "kpi_definitions", schema = "kpi")
 public class KpiDefinition {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

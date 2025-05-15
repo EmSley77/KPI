@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class LogResponseDTO {
 
     private Long id;
-    private Long kpiId;
+    private Long kpiDefinitionId;
     private String userId;
     private LocalDate date;
     private Double value;

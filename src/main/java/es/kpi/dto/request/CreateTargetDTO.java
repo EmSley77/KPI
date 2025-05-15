@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class CreateTargetDTO {
 
     @NotNull
-    private Long kpiId;
+    private Long kpiDefinitionId;
 
     @NotNull
     @Size(max = 36)

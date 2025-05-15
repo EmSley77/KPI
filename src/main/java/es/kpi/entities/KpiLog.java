@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @Table(name = "kpi_logs", schema = "kpi")
 public class KpiLog {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

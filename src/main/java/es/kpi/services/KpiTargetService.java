@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class TargetService {
+public class KpiTargetService {
 
     private final TargetRepo targetRepo;
-    private final DefinitionService definitionService;
+    private final KpiDefinitionService kpiDefinitionService;
 
     //create
     public void createTarget(CreateTargetDTO createTargetDTO) {
@@ -26,7 +26,7 @@ public class TargetService {
     //map to category entity obj
     private KpiTarget mapToTargetEntity(CreateTargetDTO createTargetDTO) {
         return new KpiTarget(
-                definitionService.getById(createTargetDTO.getKpiId()),
+                kpiDefinitionService.getById(createTargetDTO.getKpiDefinitionId()),
                 createTargetDTO.getUserId(),
                 createTargetDTO.getTargetValue(),
                 createTargetDTO.getTargetDate());
@@ -47,7 +47,7 @@ public class TargetService {
                 .toList();
     }
 
-    public TargetResponseDTO getTargetBy(Long KpiId, String userId) {
+    public TargetResponseDTO getTargetByKpiIdAndUserId(Long KpiId, String userId) {
         return targetRepo.findAllByUserIdAndKpiId(userId,KpiId)
                 .filter(kpiTarget -> kpiTarget.getUserId().equals(userId))
                 .map(this::mapToResponseDTO)

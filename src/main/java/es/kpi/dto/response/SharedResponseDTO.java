@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SharedResponseDTO {
 
     private Long id;
-    private Long kpiId;
+    private Long kpiDefinitionId;
     private String ownerId;
     private String sharedWith;
 }

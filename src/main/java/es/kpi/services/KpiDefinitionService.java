@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DefinitionService {
+public class KpiDefinitionService {
 
     private final DefinitionRepo definitionRepo;
     private final CategoryService categoryService;
@@ -44,7 +44,7 @@ public class DefinitionService {
 
     //fetch
     @Transactional(readOnly = true)
-    public List<DefinitionResponseDTO> getAllCategoriesByUserId(String userId) {
+    public List<DefinitionResponseDTO> getAllDefinitionsByUserId(String userId) {
         return definitionRepo.findAllByUserId(userId)
                 .stream()
                 .map(this::mapToResponseDTO)

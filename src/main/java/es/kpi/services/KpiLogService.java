@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class LogService {
+public class KpiLogService {
 
     private final LogRepo logRepo;
-    private final DefinitionService definitionService;
+    private final KpiDefinitionService kpiDefinitionService;
 
 
     //create
@@ -28,7 +28,7 @@ public class LogService {
     //map to category entity obj
     private KpiLog mapToLogEntity(CreateLogDTO createLogDTO) {
         return new KpiLog(
-                definitionService.getById(createLogDTO.getKpiId()),
+                kpiDefinitionService.getById(createLogDTO.getKpiDefinitionId()),
                 createLogDTO.getUserId(),
                 LocalDate.now(),
                 createLogDTO.getValue(),

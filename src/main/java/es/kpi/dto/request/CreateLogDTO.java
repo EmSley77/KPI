@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class CreateLogDTO {
 
     @NotNull
-    private Long kpiId;
+    private Long kpiDefinitionId;
 
     @NotNull
     @Size(max = 36)

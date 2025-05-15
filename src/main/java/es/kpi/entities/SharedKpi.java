@@ -15,6 +15,7 @@ import lombok.Setter;
 @Table(name = "shared_kpis", schema = "kpi")
 public class SharedKpi {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class CreateSharedDTO {
 
     @NotNull
-    private Long kpiId;
+    private Long kpiDefinitionId;
 
     @NotNull
     @Size(max = 36)
