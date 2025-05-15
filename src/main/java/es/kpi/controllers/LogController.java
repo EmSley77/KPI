@@ -14,6 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/log")
 @Slf4j
+@CrossOrigin("*")
 /**
  * LogController is responsible for handling requests related to KPI logs.
  * It provides endpoints for creating, retrieving, and deleting KPI logs.

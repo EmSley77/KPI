@@ -14,6 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/target")
 @Slf4j
+@CrossOrigin("*")
 /**
  * TargetController is responsible for handling requests related to target entities.
  * It provides endpoints for creating, updating, deleting, and retrieving target information.

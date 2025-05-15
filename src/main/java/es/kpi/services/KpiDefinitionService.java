@@ -25,6 +25,10 @@ public class KpiDefinitionService {
 
     //create
     public void createDefinition(CreateDefinitionDTO createDefinitionDTO) {
+        //check if same definition already exists
+        if (definitionRepo.existsByUserIdAndName(createDefinitionDTO.getUserId(), createDefinitionDTO.getName())) {
+            throw new IllegalArgumentException("KPI Definition already exists");
+        }
         definitionRepo.save(mapToDefinitionRequestDTO(createDefinitionDTO));
     }
 

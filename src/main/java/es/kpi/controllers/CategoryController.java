@@ -18,6 +18,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/category")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -65,6 +66,23 @@ public class CategoryController {
         }
         return ResponseEntity.ok(response);
     }
+
+    //Update a category
+    @PutMapping("/update/categoryId/{categoryId}")
+    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId,
+                                            @RequestBody CreateCategoryDTO dto) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            categoryService.updateCategory(categoryId, dto);
+            response.put("data", "KPI category updated successfully");
+            response.put("error", null);
+        } catch (Exception e) {
+            response.put("data", null);
+            response.put("error", Map.of("message", e.getMessage()));
+        }
+        return ResponseEntity.ok(response);
+    }
+
 
     // Delete a category by ID
     @DeleteMapping("/delete/{categoryId}")

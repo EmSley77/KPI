@@ -14,6 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api/v1/definition")
+@CrossOrigin("*")
 /**
  * DefinitionController handles requests related to KPI definitions.
  * It provides endpoints for creating, retrieving, and deleting KPI definitions.

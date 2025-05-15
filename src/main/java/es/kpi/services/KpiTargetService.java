@@ -28,6 +28,15 @@ public class KpiTargetService {
 
     //create
     public void createTarget(CreateTargetDTO createTargetDTO) {
+        // Check if target already exists
+        if (targetRepo.existsByUserIdAndKpi_Id(createTargetDTO.getUserId(), createTargetDTO.getKpiDefinitionId())) {
+            throw new IllegalArgumentException("Target already exists");
+        }
+        // Check if the KPI definition exists
+        KpiDefinition kpiDefinition = kpiDefinitionService.getById(createTargetDTO.getKpiDefinitionId());
+        if (kpiDefinition == null) {
+            throw new NotFoundException("KPI Definition not found");
+        }
         targetRepo.save(mapToTargetEntity(createTargetDTO));
     }
 
@@ -43,12 +52,21 @@ public class KpiTargetService {
 
     //delete
     public void deleteTarget(Long targetId) {
+        if (!targetRepo.existsById(targetId)) {
+            log.warn("KPI Target with ID {} does not exist", targetId);
+            return;
+        }
         targetRepo.deleteById(targetId);
     }
 
     //fetch by userId
     public List<TargetResponseDTO> getAllTargetsByUserId(String userId) {
-        return targetRepo.findAllByUserId(userId)
+        List<KpiTarget> targets = targetRepo.findAllByUserId(userId);
+        if (targets.isEmpty()) {
+            log.info("No KPI targets found for userId: {}", userId);
+            return List.of();
+        }
+        return targets
                 .stream()
                 .map(this::mapToResponseDTO)
                 .toList();

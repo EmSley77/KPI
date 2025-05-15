@@ -37,6 +37,10 @@ public class KpiLogService {
 
     //delete
     public void deleteLog(Long logId) {
+        if (!logRepo.existsById(logId)) {
+            log.warn("KPI Log with ID {} does not exist", logId);
+            return;
+        }
         logRepo.deleteById(logId);
     }
 

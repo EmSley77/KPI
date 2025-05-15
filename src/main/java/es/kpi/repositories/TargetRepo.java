@@ -3,6 +3,7 @@ package es.kpi.repositories;
 import es.kpi.entities.KpiDefinition;
 import es.kpi.entities.KpiTarget;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,6 @@ public interface TargetRepo extends JpaRepository<KpiTarget, Long> {
     Optional<KpiTarget> findByKpiAndUserId(KpiDefinition kpiDefinition, String userId);
 
     KpiDefinition kpi(@NotNull KpiDefinition kpi);
+
+    boolean existsByUserIdAndKpi_Id(@NotNull @Size(max = 36) String userId, @NotNull Long kpiDefinitionId);
 }
