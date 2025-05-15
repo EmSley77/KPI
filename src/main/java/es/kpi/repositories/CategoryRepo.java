@@ -10,6 +10,6 @@ import java.util.List;
 public interface CategoryRepo extends JpaRepository<Category, Long> {
 
 
-    List<Category> findAllByUserId(@Size(max = 36) @NotNull String userId);
+    List<Category> findAllByUserId(String userId);
     List<Category> findAllByUserIdAndName(String userId, String name);
 }
