@@ -31,10 +31,11 @@ public class KpiDefinitionService {
                 createDefinitionDTO.getName(),
                 createDefinitionDTO.getUnit(),
                 createDefinitionDTO.getUserId(),
+                createDefinitionDTO.getValue(),
                 categoryService.getCategoryById(createDefinitionDTO.getCategoryId()),
                 createDefinitionDTO.getIsRecurring(),
                 createDefinitionDTO.getRecurrenceType(),
-                createDefinitionDTO.getRecurrenceDetail());
+                createDefinitionDTO.getRecurrenceDate());
     }
 
 
@@ -74,10 +75,11 @@ public class KpiDefinitionService {
                 definition.getName(),
                 definition.getUnit(),
                 definition.getUserId(),
+                definition.getValue(),
                 definition.getCategory().getId(),
                 definition.getIsRecurring(),
                 definition.getRecurrenceType(),
-                definition.getRecurrenceDetail()
+                definition.getRecurrenceDate().toString()
         );
     }
 }

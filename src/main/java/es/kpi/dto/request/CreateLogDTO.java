@@ -20,8 +20,4 @@ public class CreateLogDTO {
     @Size(max = 36)
     private String userId;
 
-    @NotNull
-    private Double value;
-
-    private String note;
 }

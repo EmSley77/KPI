@@ -6,6 +6,10 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +35,10 @@ public class KpiDefinition {
     @Column(name = "user_id", nullable = false, length = 36)
     private String userId;
 
+    @NotNull
+    @Column(name = "value", nullable = false)
+    private Double value;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
@@ -44,17 +52,18 @@ public class KpiDefinition {
     private String recurrenceType; // daily, weekly, monthly, yearly
 
     @NotNull
-    @Column(name = "recurrence_detail", nullable = false)
-    private String recurrenceDetail; // day when the recurrence happens (DD)
+    @Column(name = "recurrence_date", nullable = false)
+    private LocalDate recurrenceDate; // day when the recurrence happens (DD)
 
-
-    public KpiDefinition(String name, String unit, String userId, Category category, Boolean isRecurring, String recurrenceType, String recurrenceDetail) {
+    public KpiDefinition(String name, String unit, String userId, Double value, Category category,
+                         Boolean isRecurring, String recurrenceType, LocalDate recurrenceDate) {
         this.name = name;
         this.unit = unit;
         this.userId = userId;
+        this.value = value;
         this.category = category;
         this.isRecurring = isRecurring;
         this.recurrenceType = recurrenceType;
-        this.recurrenceDetail = recurrenceDetail;
+        this.recurrenceDate = recurrenceDate;
     }
 }

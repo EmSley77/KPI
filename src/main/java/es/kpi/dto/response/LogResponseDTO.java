@@ -15,6 +15,4 @@ public class LogResponseDTO {
     private Long kpiDefinitionId;
     private String userId;
     private LocalDate date;
-    private Double value;
-    private String note;
 }

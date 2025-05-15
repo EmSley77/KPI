@@ -35,19 +35,9 @@ public class KpiLog {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
-    @NotNull
-    @Column(name = "value", nullable = false)
-    private Double value;
-
-    @Lob
-    @Column(name = "note")
-    private String note;
-
-    public KpiLog(KpiDefinition kpi, String userId, Double value, String note) {
+    public KpiLog(KpiDefinition kpi, String userId) {
         this.kpi = kpi;
         this.userId = userId;
         this.date = LocalDate.now();
-        this.value = value;
-        this.note = note;
     }
 }

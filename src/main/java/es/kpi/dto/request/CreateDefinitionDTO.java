@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +25,9 @@ public class CreateDefinitionDTO {
     @Size(max = 36)
     private String userId;
 
+    @NotNull
+    private Double value;
+
     private Long categoryId; // optional if not always needed
 
     private Boolean isRecurring;
@@ -31,5 +36,5 @@ public class CreateDefinitionDTO {
     private String recurrenceType; // daily, weekly, monthly, yearly
 
     @NotNull
-    private String recurrenceDetail;  // Meaning depends on recurrenceType
+    private LocalDate recurrenceDate;  // Meaning depends on recurrenceType
 }

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,12 +28,8 @@ public class KpiLogService {
     private KpiLog mapToLogEntity(CreateLogDTO createLogDTO) {
         return new KpiLog(
                 kpiDefinitionService.getById(createLogDTO.getKpiDefinitionId()),
-                createLogDTO.getUserId(),
-                createLogDTO.getValue(),
-                createLogDTO.getNote());
+                createLogDTO.getUserId());
     }
-
-    //edit
 
     //delete
     public void deleteLog(Long logId) {
@@ -54,9 +49,7 @@ public class KpiLogService {
                 kpiLog.getId(),
                 kpiLog.getKpi().getId(),
                 kpiLog.getUserId(),
-                kpiLog.getDate(),
-                kpiLog.getValue(),
-                kpiLog.getNote()
+                kpiLog.getDate()
         );
     }
 }
