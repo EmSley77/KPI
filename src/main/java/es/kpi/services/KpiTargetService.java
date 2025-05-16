@@ -9,6 +9,7 @@ import es.kpi.exceptions.NotFoundException;
 import es.kpi.repositories.TargetRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -66,6 +67,7 @@ public class KpiTargetService {
     }
 
     //fetch by userId
+    @Cacheable(value = "logs", key = "#userId")
     public List<TargetResponseDTO> getAllTargetsByUserId(String userId) {
         List<KpiTarget> targets = targetRepo.findAllByUserId(userId);
         if (targets.isEmpty()) {

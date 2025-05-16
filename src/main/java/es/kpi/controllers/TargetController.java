@@ -2,6 +2,7 @@ package es.kpi.controllers;
 
 import es.kpi.dto.request.CreateTargetDTO;
 import es.kpi.services.KpiTargetService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class TargetController {
 
     // Create
     @PostMapping("/create")
-    public ResponseEntity<?> createTarget(@RequestBody CreateTargetDTO dto) {
+    public ResponseEntity<?> createTarget(@Valid @RequestBody CreateTargetDTO dto) {
         Map<String, Object> response = new HashMap<>();
         try {
             kpiTargetService.createTarget(dto);

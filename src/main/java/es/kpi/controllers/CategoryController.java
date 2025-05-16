@@ -2,6 +2,7 @@ package es.kpi.controllers;
 
 import es.kpi.dto.request.CreateCategoryDTO;
 import es.kpi.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class CategoryController {
 
     // Create a new KPI category
     @PostMapping("/create")
-    public ResponseEntity<?> createCategory(@RequestBody CreateCategoryDTO dto) {
+    public ResponseEntity<?> createCategory(@Valid @RequestBody CreateCategoryDTO dto) {
         Map<String, Object> response = new HashMap<>();
         try {
             categoryService.createCategory(dto);

@@ -2,6 +2,7 @@ package es.kpi.controllers;
 
 import es.kpi.dto.request.CreateLogDTO;
 import es.kpi.services.KpiLogService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class LogController {
 
     // Create a new KPI log
     @PostMapping("/create")
-    public ResponseEntity<?> createLogs(@RequestBody CreateLogDTO dto) {
+    public ResponseEntity<?> createLogs(@Valid @RequestBody CreateLogDTO dto) {
         Map<String, Object> response = new HashMap<>();
         try {
             kpiLogService.createLog(dto);

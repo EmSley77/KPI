@@ -2,6 +2,7 @@ package es.kpi.controllers;
 
 import es.kpi.dto.request.CreateDefinitionDTO;
 import es.kpi.services.KpiDefinitionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class DefinitionController {
 
     // Create a new KPI definition
     @PostMapping("/create")
-    public ResponseEntity<?> createDefinition(@RequestBody CreateDefinitionDTO dto) {
+    public ResponseEntity<?> createDefinition(@Valid @RequestBody CreateDefinitionDTO dto) {
         Map<String, Object> response = new HashMap<>();
         try {
             kpiDefinitionService.createDefinition(dto);
