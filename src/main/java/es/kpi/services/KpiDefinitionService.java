@@ -2,6 +2,7 @@ package es.kpi.services;
 
 import es.kpi.dto.request.CreateDefinitionDTO;
 import es.kpi.dto.response.DefinitionResponseDTO;
+import es.kpi.entities.Category;
 import es.kpi.entities.KpiDefinition;
 import es.kpi.exceptions.NotFoundException;
 import es.kpi.repositories.DefinitionRepo;
@@ -25,21 +26,18 @@ public class KpiDefinitionService {
 
     //create
     public void createDefinition(CreateDefinitionDTO createDefinitionDTO) {
-        //check if same definition already exists
-        if (definitionRepo.existsByUserIdAndName(createDefinitionDTO.getUserId(), createDefinitionDTO.getName())) {
-            throw new IllegalArgumentException("KPI Definition already exists");
-        }
         definitionRepo.save(mapToDefinitionRequestDTO(createDefinitionDTO));
     }
 
     //map to category entity obj
     private KpiDefinition mapToDefinitionRequestDTO(CreateDefinitionDTO createDefinitionDTO) {
+        Category category = categoryService.getCategoryById(createDefinitionDTO.getCategoryId());
         return new KpiDefinition(
                 createDefinitionDTO.getName(),
                 createDefinitionDTO.getUnit(),
-                createDefinitionDTO.getUserId(),
+                category.getUserId(),
                 createDefinitionDTO.getValue(),
-                categoryService.getCategoryById(createDefinitionDTO.getCategoryId()),
+                category,
                 createDefinitionDTO.getIsRecurring(),
                 createDefinitionDTO.getRecurrenceType(),
                 createDefinitionDTO.getRecurrenceDate());
@@ -69,6 +67,20 @@ public class KpiDefinitionService {
                 .toList();
     }
 
+    //fetch by userId and Recurring
+    @Transactional(readOnly = true)
+    public List<DefinitionResponseDTO> getKpiDefinitionsByUserIdAndRecurrenceType(String userId, String recurrenceType) {
+        List<KpiDefinition> definitions = definitionRepo.findByUserIdAndIsRecurringAndRecurrenceType(userId, true, recurrenceType);
+        if (definitions.isEmpty()) {
+            log.info("No KPI definitions found for userId: {}", userId);
+            return List.of();
+        }
+        return definitions
+                .stream()
+                .map(this::mapToResponseDTO)
+                .toList();
+    }
+
     //fetch by name and userId
     @Transactional(readOnly = true)
     public DefinitionResponseDTO getKPIDefinitionByNameAndUserId(String userId, String name) {
@@ -85,7 +97,7 @@ public class KpiDefinitionService {
     }
 
 
-    private DefinitionResponseDTO mapToResponseDTO(KpiDefinition definition) {
+    public DefinitionResponseDTO mapToResponseDTO(KpiDefinition definition) {
         return new DefinitionResponseDTO(
                 definition.getId(),
                 definition.getName(),

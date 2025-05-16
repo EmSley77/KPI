@@ -54,6 +54,55 @@ public class LogController {
         }
     }
 
+    @GetMapping("/all/userId/{userId}/recurrenceType/{recurrenceType}")
+    public ResponseEntity<?> getAllByUserIdAndRecurrence(@PathVariable String userId,
+                                                         @PathVariable String recurrenceType) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            response.put("data", kpiLogService.getLogsByUserIdAndRecurrenceType(userId, recurrenceType));
+            response.put("error", null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("data", null);
+            response.put("error", Map.of("message", e.getMessage()));
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @GetMapping("/all/userId/{userId}/recurrenceType/{recurrenceType}/timeFrame/{timeFrame}")
+    public ResponseEntity<?> getAllByUserIdAndRecurrenceAndTimeFrame(@PathVariable String userId,
+                                                                     @PathVariable String recurrenceType,
+                                                                     @PathVariable String timeFrame) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            response.put("data", kpiLogService.getLogsByUserIdAndRecurrenceTypeAndDateInterval(userId, recurrenceType
+                    , timeFrame));
+            response.put("error", null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("data", null);
+            response.put("error", Map.of("message", e.getMessage()));
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @GetMapping("/all/userId/{userId}/recurrenceType/{recurrenceType}/timeFrame/{timeFrame}/kpiId/{kpiId}")
+    public ResponseEntity<?> getAllByUserIdAndRecurrenceAndTimeFrameAndKpiId(@PathVariable String userId,
+                                                                             @PathVariable String timeFrame,
+                                                                             @PathVariable Long kpiId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            response.put("data", kpiLogService.getLogsByUserIdAndRecurrenceTypeAndDateIntervalAndKPI(userId
+                    , timeFrame, kpiId));
+            response.put("error", null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("data", null);
+            response.put("error", Map.of("message", e.getMessage()));
+            return ResponseEntity.ok(response);
+        }
+    }
+
     // Delete log by ID
     @DeleteMapping("/delete/{logId}")
     public ResponseEntity<?> deleteLog(@PathVariable Long logId) {

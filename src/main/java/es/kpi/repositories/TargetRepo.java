@@ -21,5 +21,5 @@ public interface TargetRepo extends JpaRepository<KpiTarget, Long> {
 
     KpiDefinition kpi(@NotNull KpiDefinition kpi);
 
-    boolean existsByUserIdAndKpi_Id(@NotNull @Size(max = 36) String userId, @NotNull Long kpiDefinitionId);
+    boolean existsByKpi_Id( @NotNull Long kpiDefinitionId);
 }

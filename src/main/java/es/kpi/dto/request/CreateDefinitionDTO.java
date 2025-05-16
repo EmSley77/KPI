@@ -28,10 +28,6 @@ public class CreateDefinitionDTO {
     private String unit;
 
     @NotNull
-    @Size(max = 36)
-    private String userId;
-
-    @NotNull
     private Double value;
 
     private Long categoryId; // optional if not always needed

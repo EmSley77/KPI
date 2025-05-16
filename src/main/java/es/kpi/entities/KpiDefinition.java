@@ -49,7 +49,7 @@ public class KpiDefinition {
 
     @NotNull
     @Column(name = "recurrence_type", nullable = false)
-    private String recurrenceType; // daily, weekly, monthly, yearly
+    private String recurrenceType; // daily, weekly, monthly, yearly in caps
 
     @NotNull
     @Column(name = "recurrence_date", nullable = false)

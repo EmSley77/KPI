@@ -20,8 +20,4 @@ public class CreateLogDTO {
     @NotNull
     private Long kpiDefinitionId;
 
-    @NotNull
-    @Size(max = 36)
-    private String userId;
-
 }

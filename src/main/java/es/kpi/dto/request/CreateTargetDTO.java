@@ -22,9 +22,6 @@ public class CreateTargetDTO {
     @NotNull
     private Long kpiDefinitionId;
 
-    @NotNull
-    @Size(max = 36)
-    private String userId;
 
     @NotNull
     private Double targetValue;

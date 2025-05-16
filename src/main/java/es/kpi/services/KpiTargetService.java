@@ -28,8 +28,9 @@ public class KpiTargetService {
 
     //create
     public void createTarget(CreateTargetDTO createTargetDTO) {
+
         // Check if target already exists
-        if (targetRepo.existsByUserIdAndKpi_Id(createTargetDTO.getUserId(), createTargetDTO.getKpiDefinitionId())) {
+        if (targetRepo.existsByKpi_Id(createTargetDTO.getKpiDefinitionId())) {
             throw new IllegalArgumentException("Target already exists");
         }
         // Check if the KPI definition exists
@@ -42,9 +43,14 @@ public class KpiTargetService {
 
     //map to category entity obj
     private KpiTarget mapToTargetEntity(CreateTargetDTO createTargetDTO) {
+        // Check if the KPI definition exists
+        KpiDefinition kpiDefinition = kpiDefinitionService.getById(createTargetDTO.getKpiDefinitionId());
+        if (kpiDefinition == null) {
+            throw new NotFoundException("KPI Definition not found");
+        }
         return new KpiTarget(
                 kpiDefinitionService.getById(createTargetDTO.getKpiDefinitionId()),
-                createTargetDTO.getUserId(),
+                kpiDefinition.getUserId(),
                 createTargetDTO.getTargetValue(),
                 createTargetDTO.getTargetDate());
     }

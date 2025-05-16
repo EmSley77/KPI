@@ -17,5 +17,7 @@ public interface DefinitionRepo extends JpaRepository<KpiDefinition, Long> {
     Optional<KpiDefinition> findByUserIdAndName(String userId, String name);
 
 
+    List<KpiDefinition> findByUserIdAndIsRecurringAndRecurrenceType(String userId, boolean isRecurring, String recurrenceType);
+
     boolean existsByUserIdAndName(@NotNull @Size(max = 36) String userId, @NotNull @Size(max = 100) String name);
 }

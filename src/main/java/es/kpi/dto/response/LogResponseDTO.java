@@ -18,7 +18,6 @@ import java.time.LocalDate;
 public class LogResponseDTO {
 
     private Long id;
-    private Long kpiDefinitionId;
-    private String userId;
+    private DefinitionResponseDTO kpi_definition;
     private LocalDate date;
 }
